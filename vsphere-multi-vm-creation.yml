@@ -1,0 +1,37 @@
+---
+- hosts: local
+  connection: local
+  gather_facts: True
+  vars:
+    count: 2
+  tasks:
+    - vsphere_guest:
+        vcenter_hostname: vcenter ip
+        username: vcenter username
+        password: xxxx
+        guest: vmname
+        state: powered_on
+        vm_extra_config:
+          vcpu.hotadd: yes
+          mem.hotadd:  yes
+          notes: This is a test VM
+        vm_disk:
+          disk1:
+            size_gb: 1
+            type: thin
+            datastore: datastore name
+        vm_nic:
+          nic1:
+            type: vmxnet3
+            network: network name
+            network_type: standard
+        vm_hardware:
+          memory_mb: 1024
+          num_cpus: 1
+          osid: centos64Guest
+          scsi: paravirtual
+        esxi:
+          datacenter: data center name
+          hostname: esxi host ip
+        validate_certs: no
+

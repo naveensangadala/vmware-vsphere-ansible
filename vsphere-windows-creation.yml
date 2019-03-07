@@ -1,0 +1,37 @@
+---
+- hosts: local
+  connection: local
+  tasks:
+    - vsphere_guest:
+        vcenter_hostname: 10.193.34.216
+        username: nsangadala
+        password: Welcome1
+        guest: windows-vm
+        state: powered_on
+        vm_extra_config:
+          vcpu.hotadd: yes
+          mem.hotadd:  yes
+          notes: This is a test windows-VM
+        vm_disk:
+          disk1:
+            size_gb: 30
+            type: thin
+            datastore: RKE-Pure-MFX-DR-LUN2
+        vm_nic:
+          nic1:
+            type: vmxnet3
+            network: Hamiltondr-vlan361
+            network_type: standard
+        vm_hardware:
+          memory_mb: 1024
+          num_cpus: 1
+          osid: windows7_64Guest
+          scsi: paravirtual
+          vm_cdrom:
+            type: "iso" 
+            iso_path: "RKE-Pure-MFX-DR-LUN39/SW_DVD5_SA_Win_Ent_7_64BIT_English_Full_MLF_X15-70749.ISO"
+        esxi:
+          datacenter: HamiltonDR
+          hostname: 10.193.34.218
+        validate_certs: no
+

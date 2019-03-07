@@ -1,0 +1,37 @@
+---
+- hosts: local
+  connection: local
+  tasks:
+    - vsphere_guest:
+        vcenter_hostname: vcenter ip
+        username: vcenter username
+        password: xxx
+        guest: vmname
+        state: powered_off
+        vm_extra_config:
+          vcpu.hotadd: yes
+          mem.hotadd:  yes
+          notes: This is a test VM
+        vm_disk:
+          disk1:
+            size_gb: 10
+            type: thin
+            datastore: datastore name
+        vm_nic:
+          nic1:
+            type: vmxnet3
+            network: network name
+            network_type: standard
+        vm_hardware:
+          memory_mb: 2048
+          eum_cpus: 2
+          osid: rhel6_64Guest
+          scsi: paravirtual
+          vm_cdrom:
+            type: "iso"
+            iso_path: "datastorename/rhel-server-6.6-x86_64-dvd.iso"
+        esxi:
+          datacenter: datacenter name
+          hostname: esxi host ip
+        validate_certs: no
+

@@ -1,0 +1,19 @@
+---
+- hosts: local
+  connection: local
+  tasks:
+    - name: deploy a new VM using template
+      vsphere_guest:
+         vcenter_hostname: vcenter ip
+         username: vcenter-username
+         password: password
+         guest: vmname
+         from_template: yes
+         template_src: 
+         cluster: luster
+         resource_pool: "/Resources"
+         vm_extra_config:
+            vcpu.hotadd: yes
+            mem.hotadd:  yes
+            notes: This is a test VM deployed from template
+           folder: MyFolder
